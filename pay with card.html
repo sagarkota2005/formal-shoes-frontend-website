@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay with Card - ShoeStore</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120vh;
+        }
+
+        
+        .back-arrow {
+            position: absolute;
+            padding: 0.2rem;
+            top: 10px;
+            left: 25px;
+            font-size: 50px;
+            color: #1a1818 ;
+            text-decoration: black;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-arrow:hover {
+            color :#b67d1a;
+        }
+        .card-payment-container {
+            max-width: 500px;
+            width: 100%;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #f39c12;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #f39c12;
+        }
+
+        .pay-btn {
+            padding: 0.8rem;
+            background-color: #f39c12;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .pay-btn:hover {
+            background-color: #e08e0b;
+        }
+
+        .cancel-btn {
+            text-align: center;
+            margin-top: 1rem;
+            text-decoration: none;
+            color: #555;
+        }
+
+        .cancel-btn:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            .card-payment-container {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.2rem;
+            }
+
+            .pay-btn {
+                font-size: 1rem;
+                padding: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Arrow -->
+    <a class="back-arrow" onclick="history.back()">
+        &#8592; 
+    </a>
+    <div class="card-payment-container">
+        <h1>Pay with Card</h1>
+        <form action="#" method="POST" onsubmit="return validateForm()">
+            <label for="cardholder-name">Cardholder Name</label>
+            <input type="text" id="cardholder-name" name="cardholder-name" placeholder="Enter your name" required>
+
+            <label for="card-number">Card Number</label>
+            <input type="text" id="card-number" name="card-number" placeholder="XXXX XXXX XXXX XXXX" maxlength="16" required>
+
+            <label for="expiry-date">Expiration Date</label>
+            <input type="month" id="expiry-date" name="expiry-date" required>
+
+            <label for="cvv">CVV</label>
+            <input type="password" id="cvv" name="cvv" placeholder="XXX" maxlength="3" required>
+
+            <label for="billing-address">Billing Address</label>
+            <input type="text" id="billing-address" name="billing-address" placeholder="Enter your address" required>
+
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+                <option value="" disabled selected>Select your country</option>
+                <option value="us">United States</option>
+                <option value="ca">Canada</option>
+                <option value="uk">United Kingdom</option>
+                <option value="in">India</option>
+                <option value="au">Australia</option>
+                <option value="others">Other</option>
+            </select>
+
+            <button type="submit" class="pay-btn">Confirm Payment</button>
+            <a  class="cancel-btn" onclick="history.back()">Cancel</a>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            const cardNumber = document.getElementById('card-number').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (!/^\d{16}$/.test(cardNumber)) {
+                alert('Card number must be 16 digits.');
+                return false;
+            }
+
+            if (!/^\d{3}$/.test(cvv)) {
+                alert('CVV must be 3 digits.');
+                return false;
+            }
+
+            alert('Payment successful!');
+            return true;
+        }
+    </script>
+</body>
+</html>

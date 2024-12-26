@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShoeStore - Products</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(217, 217, 249);
+            color: black;
+        }
+
+        .back-arrow {
+            position: absolute;
+            margin: 1rem 1rem auto;
+            top: 0rem;
+            left: 10px;
+            font-size: 50px;
+            color: #000000;
+            text-decoration: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-arrow:hover {
+            color: rgb(236, 136, 30);
+        }
+
+        .container {
+            width: 90%;
+            margin: 2rem auto;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+            color: black;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: #363330;
+            margin-bottom: 1rem;
+        }
+
+        /* products size and quantity*/
+        .product-size select {
+            padding-left: center;
+            border: 2px solid #4a4949;
+            border-radius: 5px;
+            font-size: 1rem;
+            width: 20%;
+            margin: 0px 1px auto;
+        }
+
+        .product-quantity input {
+            padding-left: 1rem;
+            border: 2px solid #4a4949;
+            border-radius: 5px;
+            font-size: 1rem;
+            width: 20%;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+
+        }
+
+        .buy-now-btn {
+            background-color: #f39c12;
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .buy-now-btn:hover {
+            background-color: #e08e0b;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Back Arrow -->
+    <a class="back-arrow" onclick="history.back()">
+        &#8592;
+    </a>
+
+
+    <!-- JavaScript -->
+    <script>
+        // Sample products
+        const products = [
+            { id: product - 1, name: "office wear Shoe", category: "office wear shoes", price: "₹1389/-" },
+            { id: product - 2, name: "party wear shoes", category: "party wear shoes", price: "₹1999/-" },
+            { id: product - 3, name: "genuine Leather shoes", category: "leather shoes", price: "₹2499/-" },
+            { id: product - 4, name: "thermal loafer shoes", category: "loafer shoes", price: "₹1199/-" },
+            { id: product - 5, name: "shinning black office wear shoes", category: "office wear shoes", price: "₹1699/-" },
+            { id: product - 6, name: "brown office wear shoes", category: "office wear shoes", price: "₹799/-" },
+            { id: product - 7, name: "navy blue party wear shoes", category: "party wear shoes", price: "₹2399/-" },
+            { id: product - 8, name: "zipper formal wear Shoes", category: "zipper shoes", price: "₹1499/-" },
+            { id: product - 9, name: "maroon party wear Shoes", category: "party wear shoes", price: "₹899/-" },
+            { id: product - 10, name: "premium Leather Shoe", category: "leather shoes", price: "₹2099/-" },
+            { id: product - 11, name: "men's wedding shoes", category: "men's wedding shoes", price: "₹1399/-" },
+            { id: product - 12, name: "british slip on loafer Shoes", category: "loafers shoes", price: "₹899/-" },
+            { id: product - 13, name: "party wear Shoes", category: "party wear Shoes", price: "₹1099/-" },
+            { id: product - 14, name: "men's wedding leather shoes", category: "men's wedding shoes", price: "₹1299/-" },
+            { id: product - 15, name: "Leather shoes", category: "leather shoes", price: "₹900/-" },
+            { id: product - 16, name: "party wear Shoes", category: "party wear Shoes", price: "₹999/-" },
+            { id: product - 17, name: "zipper formal Shoes", category: "zipper shoes", price: "₹1199/-" },
+        ];
+
+        // Get the search query from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get("search")?.toLowerCase();
+
+        // Filter and display products based on the search query
+        const productList = document.getElementById("product-list");
+        if (searchQuery) {
+            const matchingProducts = products.filter(product =>
+                product.name.toLowerCase().includes(searchQuery)
+            );
+
+            if (matchingProducts.length > 0) {
+                matchingProducts.forEach(product => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = `${product.name} - ${product.price}`;
+                    productList.appendChild(listItem);
+                });
+            } else {
+                productList.innerHTML = "<li>No products found matching your search.</li>";
+            }
+        } else {
+            productList.innerHTML = "<li>No search query provided.</li>";
+        }
+    </script>
+    <div class="container">
+        <h1>Products</h1>
+        <div class="product-grid">
+            <!-- Product 1 -->
+            <div class="product-card" id="product-1" category="office wear shoes">
+                <div class="product-image">
+                    <img src="image/s1.webp" alt="Shoe 1">
+                </div>
+                <div class="product-name">office wear shoes</div>
+                <div class="product-price" data-price="1389">₹1389/-</div>
+
+                <div class="product-size">
+                    <label for="size-1">Shoe Size:</label>
+                    <select id="size-1" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-1">Quantity:</label>
+                    <input type="number" id="quantity-1" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="Office Wear Shoes">
+                    <input type="hidden" name="price" value="1389">
+                    <input type="hidden" name="size" id="hidden-size-1">
+                    <input type="hidden" name="quantity" id="hidden-quantity-1">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(1)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card" id="product-2" category="party wear shoes">
+                <div class="product-image">
+                    <img src="image/s2.webp" alt="Shoe 2">
+                </div>
+                <div class="product-name">party wear shoes</div>
+                <div class="product-price" data-price="1999">₹1999/-</div>
+
+                <div class="product-size">
+                    <label for="size-2">Shoe Size:</label>
+                    <select id="size-2" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-2">Quantity:</label>
+                    <input type="number" id="quantity-2" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="party wear Shoes">
+                    <input type="hidden" name="price" value="1999">
+                    <input type="hidden" name="size" id="hidden-size-2">
+                    <input type="hidden" name="quantity" id="hidden-quantity-2">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(2)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card" id="product-3" category="leather shoes">
+                <div class="product-image">
+                    <img src="image/s3.webp" alt="Shoe 3">
+                </div>
+                <div class="product-name">genuine Leather shoes</div>
+                <div class="product-price" data-price="2499">₹2499/-</div>
+
+                <div class="product-size">
+                    <label for="size-3">Shoe Size:</label>
+                    <select id="size-3" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-3">Quantity:</label>
+                    <input type="number" id="quantity-3" name="quantity" min="1" max="10" value="1">
+                </div>
+                <!-- Buy Now Button -->
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="genuine Leather Shoes">
+                    <input type="hidden" name="price" value="2499">
+                    <input type="hidden" name="size" id="hidden-size-3">
+                    <input type="hidden" name="quantity" id="hidden-quantity-3">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(3)">Buy Now</button>
+                </form>
+            </div>
+
+
+            <!-- Product 4 -->
+            <div class="product-card" id="product-4" category="leather shoes">
+                <div class="product-image">
+                    <img src="image/s4.jpg" alt="Shoe 4">
+                </div>
+                <div class="product-name">thermal leather shoes</div>
+                <div class="product-price" data-price="1199">₹1199/-</div>
+                <div class="product-size">
+                    <label for="size-4">Shoe Size:</label>
+                    <select id="size-4" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-4">Quantity:</label>
+                    <input type="number" id="quantity-4" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="thermal leather Shoes">
+                    <input type="hidden" name="price" value="1199">
+                    <input type="hidden" name="size" id="hidden-size-4">
+                    <input type="hidden" name="quantity" id="hidden-quantity-4">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(4)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card" id="product-5" category="office wear shoes">
+                <div class="product-image">
+                    <img src="image/s5.webp" alt="Shoe 5">
+                </div>
+                <div class="product-name">shinning black office wear shoes</div>
+                <div class="product-price" data-price="1699">₹1699/-</div>
+
+                <div class="product-size">
+                    <label for="size-5">Shoe Size:</label>
+                    <select id="size-5" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-5">Quantity:</label>
+                    <input type="number" id="quantity-5" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="shinning black office Shoes">
+                    <input type="hidden" name="price" value="1699">
+                    <input type="hidden" name="size" id="hidden-size-5">
+                    <input type="hidden" name="quantity" id="hidden-quantity-5">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(5)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card" id="product-6" category="office wear shoes">
+                <div class="product-image">
+                    <img src="image/s6.jpg" alt="Shoe 6">
+                </div>
+                <div class="product-name">brown office wear shoes</div>
+                <div class="product-price" data-price="799">₹799/-</div>
+
+                <div class="product-size">
+                    <label for="size-6">Shoe Size:</label>
+                    <select id="size-6" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-6">Quantity:</label>
+                    <input type="number" id="quantity-6" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="brown Office Wear Shoes">
+                    <input type="hidden" name="price" value="799">
+                    <input type="hidden" name="size" id="hidden-size-6">
+                    <input type="hidden" name="quantity" id="hidden-quantity-6">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(6)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card" id="product-7" category="party wear shoes">
+                <div class="product-image">
+                    <img src="image/s7.jpg" alt="Shoe 7">
+                </div>
+                <div class="product-name">navy blue party wear shoes</div>
+                <div class="product-price" data-price="2399">₹2399/-</div>
+
+                <div class="product-size">
+                    <label for="size-7">Shoe Size:</label>
+                    <select id="size-7" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-7">Quantity:</label>
+                    <input type="number" id="quantity-7" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="navy blue party Shoes">
+                    <input type="hidden" name="price" value="2399">
+                    <input type="hidden" name="size" id="hidden-size-7">
+                    <input type="hidden" name="quantity" id="hidden-quantity-7">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(7)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card" id="product-8" category="zipper shoes">
+                <div class="product-image">
+                    <img src="image/s8.jpg" alt="Shoe 8">
+                </div>
+                <div class="product-name">zipper formal wear Shoes</div>
+                <div class="product-price" data-price="1499">₹1499/-</div>
+
+                <div class="product-size">
+                    <label for="size-8">Shoe Size:</label>
+                    <select id="size-8" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-8">Quantity:</label>
+                    <input type="number" id="quantity-8" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="zipper formal Wear Shoes">
+                    <input type="hidden" name="price" value="1499">
+                    <input type="hidden" name="size" id="hidden-size-8">
+                    <input type="hidden" name="quantity" id="hidden-quantity-8">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(8)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card" id="product-9" category="party wear shoes">
+                <div class="product-image">
+                    <img src="image/s9.webp" alt="Shoe 9">
+                </div>
+                <div class="product-name">maroon party wear Shoes</div>
+                <div class="product-price" data-price="899">₹899/-</div>
+
+                <div class="product-size">
+                    <label for="size-9">Shoe Size:</label>
+                    <select id="size-9" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-9">Quantity:</label>
+                    <input type="number" id="quantity-9" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="maroon party wear Shoes">
+                    <input type="hidden" name="price" value="899">
+                    <input type="hidden" name="size" id="hidden-size-9">
+                    <input type="hidden" name="quantity" id="hidden-quantity-9">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(9)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card" id="product-10" category="leather shoes">
+                <div class="product-image">
+                    <img src="image/s10.webp" alt="Shoe 10">
+                </div>
+                <div class="product-name">premium leather shoes</div>
+                <div class="product-price" data-price="2099">₹2099/-</div>
+
+                <div class="product-size">
+                    <label for="size-10">Shoe Size:</label>
+                    <select id="size-10" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-10">Quantity:</label>
+                    <input type="number" id="quantity-10" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="premium leather Shoes">
+                    <input type="hidden" name="price" value="2099">
+                    <input type="hidden" name="size" id="hidden-size-10">
+                    <input type="hidden" name="quantity" id="hidden-quantity-10">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(10)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card" id="product-11" category="men's wedding shoes">
+                <div class="product-image">
+                    <img src="image/s11.webp" alt="Shoe 11">
+                </div>
+                <div class="product-name">men's wedding shoes</div>
+                <div class="product-price" data-price="1399">₹1399/-</div>
+
+                <div class="product-size">
+                    <label for="size-11">Shoe Size:</label>
+                    <select id="size-11" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-11">Quantity:</label>
+                    <input type="number" id="quantity-11" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="Brogue Carved Leather Shoes">
+                    <input type="hidden" name="price" value="1399">
+                    <input type="hidden" name="size" id="hidden-size-11">
+                    <input type="hidden" name="quantity" id="hidden-quantity-11">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(11)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card" id="product-12" category="loafers shoes">
+                <div class="product-image">
+                    <img src="image/s12.webp" alt="Shoe 12">
+                </div>
+                <div class="product-name">british slip on loafer Shoes</div>
+                <div class="product-price" data-price="899">₹899/-</div>
+
+                <div class="product-size">
+                    <label for="size-12">Shoe Size:</label>
+                    <select id="size-12" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-12">Quantity:</label>
+                    <input type="number" id="quantity-12" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="british slip on loafer Shoes">
+                    <input type="hidden" name="price" value="899">
+                    <input type="hidden" name="size" id="hidden-size-12">
+                    <input type="hidden" name="quantity" id="hidden-quantity-12">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(12)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 13 -->
+            <div class="product-card" id="product-13" category="party wear Shoes">
+                <div class="product-image">
+                    <img src="image/s13.webp" alt="Shoe 13">
+                </div>
+                <div class="product-name">party wear Shoes</div>
+                <div class="product-price" data-price="1099">₹1099/-</div>
+
+                <div class="product-size">
+                    <label for="size-13">Shoe Size:</label>
+                    <select id="size-13" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-13">Quantity:</label>
+                    <input type="number" id="quantity-13" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="party Wear Shoes">
+                    <input type="hidden" name="price" value="1099">
+                    <input type="hidden" name="size" id="hidden-size-13">
+                    <input type="hidden" name="quantity" id="hidden-quantity-13">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(13)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 14 -->
+            <div class="product-card" id="product-14" category="men's wedding shoes">
+                <div class="product-image">
+                    <img src="image/s14.jpg" alt="Shoe 14">
+                </div>
+                <div class="product-name">men's wedding shoes</div>
+                <div class="product-price" data-price="1299">₹1299/-</div>
+
+                <div class="product-size">
+                    <label for="size-14">Shoe Size:</label>
+                    <select id="size-14" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-14">Quantity:</label>
+                    <input type="number" id="quantity-14" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="men's wedding Shoes">
+                    <input type="hidden" name="price" value="1299">
+                    <input type="hidden" name="size" id="hidden-size-14">
+                    <input type="hidden" name="quantity" id="hidden-quantity-14">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(14)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 15 -->
+            <div class="product-card" id="product-15" category="leather shoes">
+                <div class="product-image">
+                    <img src="image/s15.jpeg" alt="Shoe 15">
+                </div>
+                <div class="product-name">Leather shoes</div>
+                <div class="product-price" data-price="900">₹900/-</div>
+
+                <div class="product-size">
+                    <label for="size-15">Shoe Size:</label>
+                    <select id="size-15" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-15">Quantity:</label>
+                    <input type="number" id="quantity-15" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="Leather shoes">
+                    <input type="hidden" name="price" value="900">
+                    <input type="hidden" name="size" id="hidden-size-15">
+                    <input type="hidden" name="quantity" id="hidden-quantity-15">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(15)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 16 -->
+            <div class="product-card" id="product-16" category="party wear Shoes">
+                <div class="product-image">
+                    <img src="image/s16.webp" alt="Shoe 16">
+                </div>
+                <div class="product-name">party wear Shoes</div>
+                <div class="product-price" data-price="999">₹999/-</div>
+
+                <div class="product-size">
+                    <label for="size-16">Shoe Size:</label>
+                    <select id="size-16" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-16">Quantity:</label>
+                    <input type="number" id="quantity-16" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="party wear Shoe">
+                    <input type="hidden" name="price" value="999">
+                    <input type="hidden" name="size" id="hidden-size-16">
+                    <input type="hidden" name="quantity" id="hidden-quantity-16">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(16)">Buy Now</button>
+                </form>
+            </div>
+
+            <!-- Product 17 -->
+            <div class="product-card" id="product-17" category="zipper shoes">
+                <div class="product-image">
+                    <img src="image/s17.png" alt="Shoe 17">
+                </div>
+                <div class="product-name">zipper formal Shoes</div>
+                <div class="product-price" data-price="1199">₹1199/-</div>
+
+                <div class="product-size">
+                    <label for="size-17">Shoe Size:</label>
+                    <select id="size-17" name="size">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!-- Quantity Selector -->
+                <div class="product-quantity">
+                    <label for="quantity-17">Quantity:</label>
+                    <input type="number" id="quantity-17" name="quantity" min="1" max="10" value="1">
+                </div>
+                <form action="payment.html" method="GET">
+                    <input type="hidden" name="product" value="zipper formal Shoe">
+                    <input type="hidden" name="price" value="1199">
+                    <input type="hidden" name="size" id="hidden-size-17">
+                    <input type="hidden" name="quantity" id="hidden-quantity-17">
+                    <button type="submit" class="buy-now-btn" onclick="updateHiddenFields(17)">Buy Now</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    </script>
+    <script>
+        function updateHiddenFields(productId) {
+            const size = document.getElementById(`size-${productId}`).value;
+            const quantity = document.getElementById(`quantity-${productId}`).value;
+            document.getElementById(`hidden-size-${productId}`).value = size;
+            document.getElementById(`hidden-quantity-${productId}`).value = quantity;
+        }
+    </script>
+
+
+</body>
+
+</html>

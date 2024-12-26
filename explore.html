@@ -1,0 +1,71 @@
+<!-- Product Page (product.html) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Formal Shoes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 1rem;
+        }
+
+        .product-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-list li {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .product-list li:hover {
+            background-color: #f7f7f7;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Page</h1>
+    <ul id="product-list" class="product-list"></ul>
+
+    <script>
+        // Sample products
+        const products = [
+            { id: 1, name: "Black Formal Shoe", category: "Formal", price: "$50" },
+            { id: 2, name: "Brown Leather Shoe", category: "Formal", price: "$60" },
+            { id: 3, name: "Classic Oxford Shoe", category: "Formal", price: "$70" },
+            { id: 4, name: "Comfort Dress Shoe", category: "Formal", price: "$55" },
+        ];
+
+        // Get the search query from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get("search")?.toLowerCase();
+
+        // Filter and display products based on the search query
+        const productList = document.getElementById("product-list");
+        if (searchQuery) {
+            const matchingProducts = products.filter(product =>
+                product.name.toLowerCase().includes(searchQuery)
+            );
+
+            if (matchingProducts.length > 0) {
+                matchingProducts.forEach(product => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = `${product.name} - ${product.price}`;
+                    productList.appendChild(listItem);
+                });
+            } else {
+                productList.innerHTML = "<li>No products found matching your search.</li>";
+            }
+        } else {
+            productList.innerHTML = "<li>No search query provided.</li>";
+        }
+    </script>
+</body>
+</html>

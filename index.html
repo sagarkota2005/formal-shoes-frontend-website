@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+
+    <title>walk well formal shoe store</title>
+    <style>
+        /* Responsive Navbar */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+            }
+        }
+
+        /* Default for large screens */
+        .container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        /* For tablets and smaller screens */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                /* Stack elements vertically */
+            }
+        }
+
+        /* For mobile screens */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .item {
+                font-size: 1rem;
+            }
+        }
+
+
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: rgba(0, 0, 0, 0.9);
+            margin: 15% auto;
+            
+            /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #000000;
+            width: 80%;
+            /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s;
+            /* Animation for modal */
+        }
+
+        .catalog-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Close Button */
+        .close {
+            color: #6f6e6e;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: rgb(231, 228, 228);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+        /* css of index from here */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: lavender;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .slider-container {
+            width: 80%;
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            transition: opacity 0.5s;
+        }
+
+        .slide img {
+            width: 100%;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .navigation {
+            position: relative;
+            top: -200px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        header {
+            background: black;
+            color: #fff;
+            padding: 0.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .logo {
+            background-color: #c9ea52;
+            border-top-right-radius: 6rem;
+            border-bottom-left-radius: 6rem;
+            color: #ffffffd1;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin: 0 1rem;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+
+        .hero {
+            background: url('hero-bg.jpg') no-repeat center center/cover;
+
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+        }
+
+        .hero .btn {
+            padding: 0.8rem 2rem;
+            background: #f39c12;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        #products {
+            padding: 2rem;
+            background: #fff;
+        }
+
+        #products h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .shoe-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .shoe-card {
+            background: #fffafa;
+            padding: 1rem;
+            color: #0f0f0f;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .shoe-card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .shoe-card h3 {
+            margin-top: 1rem;
+        }
+
+        footer {
+            padding: 1rem;
+            text-align: center;
+            background: #333;
+            color: #fff;
+        }
+
+        .nav-font {
+            font-size: 1.5rem;
+
+        }
+
+
+
+
+        .search-container {
+            display: flex;
+            justify-content: flex-end;
+            /* Aligns the search bar to the right */
+            align-items: center;
+            margin: 5px;
+        }
+
+        #search-input {
+            width: 70%;
+            max-width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-right: none;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #search-input:focus {
+            border-color: #f39c12;
+        }
+
+        .search-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-btn:hover {
+            background-color: #e08e0b;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            #search-input {
+                width: 60%;
+            }
+
+            .search-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #search-input {
+                width: 50%;
+            }
+        }
+
+        /*this is the style of product card*/
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: #f39c12;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart-btn {
+            background-color: #f39c12;
+            color: #f0f0f0;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+
+      
+    </style>
+      <script>
+        function redirectToProductPage() {
+            const searchInput = document.getElementById('search-input').value.trim().toLowerCase();
+            if (searchInput) {
+                // Redirect with query parameter
+                window.location.href = `products.html?query=${encodeURIComponent(searchInput)}`;
+            } else {
+                alert('Please enter a search term!');
+            }
+        }
+    </script>
+    
+</head>
+
+<body>
+
+
+    <!--this is the navbar of the page-->
+    <header>
+        
+        <div class="logo">Walk Well</div>
+        <nav class="navbar">
+            <ul>
+
+                <li><a class="nav-font" href="/shoes website/sign up.html">sign up</a></li>
+                <li><a class="nav-font" href="/shoes website/login.html">log in</a></li>
+                <li><a class="nav-font" href="/shoes website/products.html">Products</a></li>
+                <li><a class="nav-font" href="/shoes website/about us.html">about us</a></li>
+                <li><a class="nav-font" href="/shoes website/contact.html">contact us</a></li>
+                <!-- search Engine -->
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search for shoes..." autocomplete="off">
+                    <button onclick="redirectToProductPage()" class="search-btn">Search</button>
+                </div>
+
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+    <main>
+
+        <section id="home" class="hero">
+
+            <div class="slider-container">
+                <div class="slider">
+                    <div class="slide"><img src="image/slide1.webp" alt="Slide 1"></div>
+                    <div class="slide"><img src="image/slide2.webp" alt="Slide 2"></div>
+                    <div class="slide"><img src="image/slide3.webp" alt="Slide 3"></div>
+
+                </div>
+            </div>
+            <!-- Trigger/Open The catalog -->
+            <button id="catalogBtn"
+                style="display: block; margin: 20px auto; padding: 10px 20px; font-size: 16px; background-color: #f39c12; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                View Catalog
+            </button>
+
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <center>
+                        <h1> Men's Formal Shoes Catalog</h1>
+                    </center>
+                    <div class="catalog-container">
+                        <h2>Our Mission</h2>
+                        <p>At <strong>walk well Shoe Store</strong>, we are dedicated to creating shoes that represent
+                            timeless
+                            elegance. Each pair is designed for modern gentlemen who value style, comfort, and quality.
+                        </p>
+                        <br>
+                        <center>
+                            <h2>Categories of Formal Shoes</h2>
+                        </center>
+                        <h3>Discover our exclusive collection of men's formal shoes:-</h3>
+                        <ul type="none" style=" padding-left: 40px;">
+                            <br>
+                            <li><strong>leather shoes:-</strong> Sleek and formal for all occasions.
+                            </li>
+                            <li><strong>office wear shoes:-</strong> Sophisticated yet versatile for business.</li>
+                            <li><strong>Loafers:-</strong> Easy slip-ons that combine comfort with style.</li>
+                            <li><strong>party wear Shoes:-</strong> Intricate details for added elegance.</li>
+                            <li><strong>men's wedding formal shoes:-</strong> Bold, modern designs shoes.</li>
+                        </ul>
+                        <br />
+                        <center>
+                            <h2>Craftsmanship & Materials</h2>
+                        </center>
+                        <p>Our shoes are meticulously crafted from high-quality materials:</p>
+                        <ul style="text-align: center; padding-left: 20px;" type="none">
+                            <li><strong>Full-Grain:</strong> Unparalleled durability and comfort.</li>
+                            <li><strong>Suede:</strong> A soft finish with a timeless appeal.</li>
+                            <li><strong>Patent Leather:</strong> Polished for a flawless formal look.</li>
+                            <li><strong>Rubber Soles:</strong> Designed for long-lasting comfort and flexibility.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+          
+
+            
+
+            <!--this is external js-->
+            <script src="script.js"></script>
+
+            <section id="products">
+
+                <h2 style="color: #000000;">categories of formal shoes</h2>
+                <div class="shoe-grid">
+                    <div class="shoe-card">
+                        <img src="image/s10.webp" alt="Shoe 1">
+                        <h3>genuine Leather shoes</h3>
+                        <p>starts from:-₹1099/- only</p>
+                        <a href="products.html"><button class="add-to-cart-btn">explore products </button>
+                        </a>
+                    </div>
+                    <div class="shoe-card">
+                        <img src="image/p2.jpg" alt="Shoe 2">
+                        <h3>comfortable loafer shoes</h3>
+                        <p>starts from:-₹999/- only</p>
+                        <a href="/add to cart.html"><button class="add-to-cart-btn">explore products</button></a>
+                    </div>
+
+                    <div class="shoe-card">
+                        <img src="image/p3.webp" alt="Shoe 3">
+                        <h3>shining office wear</h3>
+                        <p>starts from:-₹599/- only</p>
+                        <a href="products.html"> <button class="add-to-cart-btn">explore products</button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="shoe-grid">
+                    <div class="shoe-card">
+                        <img src="image/s14.jpg" alt="Shoe 4">
+                        <h3>men's wedding shoes</h3>
+                        <p>starts from:-₹999/-</p>
+                        <a href="products.html"> <button class="add-to-cart-btn">explore products</button>
+                        </a>
+                    </div>
+
+                    <div class="shoe-card">
+                        <img src="image/temp8.jpg" alt="Shoe 5">
+                        <h3>zipper formal wear shoes</h3>
+                        <p>starts from:-₹1199/- only</p>
+                        <a href="products.html"> <button class="add-to-cart-btn">explore products</button>
+                        </a>
+                    </div>
+
+                    <div class="shoe-card">
+                        <img src="image/p6.webp" alt="Shoe 6">
+                        <h3>party wear shoes</h3>
+                        <p>starts from:-₹999/- only</p>
+                        <a href="products.html"> <button class="add-to-cart-btn">explore products</button>
+                        </a>
+                    </div>
+                </div>
+            </section>
+    </main>
+
+    <footer style="padding: 2rem; background-color: #333; color: #fff; text-align: center;">
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto;">
+            <div style="flex: 1; padding: 1rem;">
+                <h3 style="margin-bottom: 1rem;">About us</h3>
+                <p>At walk well, we provide the best quality footwear to fit your lifestyle.</p>
+            </div>
+            <div style="flex: 1; padding: 1rem;">
+                <h3 style="margin-bottom: 1rem;">Customer Service</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li><a href="#faq" style="color: #fff; text-decoration: none;">FAQ</a></li>
+                    <li><a href="#returns" style="color: #fff; text-decoration: none;">Returns</a></li>
+                    <li><a href="#shipping" style="color: #fff; text-decoration: none;">Shipping Info</a></li>
+                    <li><a href="/contact.html" style="color: #fff; text-decoration: none;">Contact Us</a></li>
+                </ul>
+            </div>
+            <div style="flex: 1; padding: 1rem;">
+                <h3 style="margin-bottom: 1rem;">Follow Us</h3>
+                <a href="https://facebook.com" target="_blank"
+                    style="margin-right: 10px; color: #fff; text-decoration: none;">Facebook</a>
+                <a href="https://instagram.com" target="_blank"
+                    style="margin-right: 10px; color: #fff; text-decoration: none;">Instagram</a>
+                <a href="https://twitter.com" target="_blank"
+                    style="margin-right: 10px; color: #fff; text-decoration: none;">Twitter</a>
+            </div>
+
+        </div>
+        <hr style="border-color: #444; margin: 2rem 0;">
+        <p>&copy; 2024 At walk well ShoeStore. All rights reserved.</p>
+        <p>Privacy Policy | Terms of Service | Sitemap</p>
+    </footer>
+
+</body>
+
+</html>

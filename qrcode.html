@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment QR Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: lavender;
+            margin: 0;
+            padding: 2rem;
+        }
+        .back-arrow {
+            position: absolute;
+            padding: 0.2rem;
+            top: 20px;
+            left: 25px;
+            font-size: 50px;
+            color: #000000;
+            text-decoration: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-arrow:hover {
+            color: #b67d1a;
+        }
+        h1 {
+            color: #333;
+        }
+        .qrcode-container {
+            margin: 2rem auto;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .payment-details {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+        
+    </style>
+</head>
+<body>
+
+     <!-- Back Arrow -->
+     <a class="back-arrow" onclick="history.back()">
+        &#8592; 
+    </a>
+    
+    <h1>Scan to Pay</h1>
+    <div class="qrcode-container">
+        <!-- Static QR Code Image -->
+        <img src="image/QRcode.jpg" alt="QR Code for Payment" style="width: 300px; height: 300px;">
+        <div class="payment-details">
+            <p>Amount: ₹<span id="amount"></span></p>
+        </div>
+    </div>
+    <script>
+        // Retrieve query parameters for the amount
+        const urlParams = new URLSearchParams(window.location.search);
+        const amount = urlParams.get('amount');
+    
+        // Display the amount in the QR Code Page
+        document.getElementById('amount').textContent = amount || "0.00";
+    
+        // Optionally generate a QR code dynamically (if using QRCode.js)
+        const qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: `upi://pay?pa=your-upi-id@upi&pn=Your Name&am=${amount}&cu=INR`,
+            width: 200,
+            height: 200,
+            colorDark: "#333333",
+            colorLight: "#ffffff",
+        });
+    </script>
+    
+    
+</body>
+</html>

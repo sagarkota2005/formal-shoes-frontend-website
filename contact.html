@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - ShoeStore</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lavender;
+            color: white;
+            padding: 2rem;
+        }
+
+        .back-arrow {
+            position: absolute;
+            padding: 0.2rem;
+            top: 10px;
+            left: 25px;
+            font-size: 50px;
+            color: #1a1818;
+            text-decoration: black;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-arrow:hover {
+            color: #f39c12;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: black;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #f39c12;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #f39c12;
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 120px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #f39c12;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #e08e0b;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Arrow -->
+    <a class="back-arrow" onclick="history.back()">&#8592;</a>
+
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <form id="contact-form" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name">
+                <p class="error-message" id="name-error">Name is required and must be at least 3 characters long.</p>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" pattern="[0-9]{10}">
+                <p class="error-message" id="phone-error">Phone number must be exactly 10 digits.</p>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" placeholder="Enter your address">
+                <p class="error-message" id="address-error">Address is required.</p>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" placeholder="Write your message here"></textarea>
+                <p class="error-message" id="message-error">Message cannot be empty.</p>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+        <div class="contact-info">
+            <p>Phone: +91 (123) 456-7890</p>
+            <p>Email: support@Walkwellshoestore.com</p>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+
+            // Name Validation
+            const name = document.getElementById("name").value.trim();
+            const nameError = document.getElementById("name-error");
+            if (name.length < 3) {
+                nameError.style.display = "block";
+                isValid = false;
+            } else {
+                nameError.style.display = "none";
+            }
+
+            // Phone Number Validation
+            const phone = document.getElementById("phone").value.trim();
+            const phoneError = document.getElementById("phone-error");
+            if (!/^\d{10}$/.test(phone)) {
+                phoneError.style.display = "block";
+                isValid = false;
+            } else {
+                phoneError.style.display = "none";
+            }
+
+            // Address Validation
+            const address = document.getElementById("address").value.trim();
+            const addressError = document.getElementById("address-error");
+            if (address === "") {
+                addressError.style.display = "block";
+                isValid = false;
+            } else {
+                addressError.style.display = "none";
+            }
+
+            // Message Validation
+            const message = document.getElementById("message").value.trim();
+            const messageError = document.getElementById("message-error");
+            if (message === "") {
+                messageError.style.display = "block";
+                isValid = false;
+            } else {
+                messageError.style.display = "none";
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>

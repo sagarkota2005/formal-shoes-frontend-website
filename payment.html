@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - ShoeStore</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lavender;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .back-arrow {
+            position: absolute;
+            padding: 0.2rem;
+            top: 10px;
+            left: 25px;
+            font-size: 50px;
+            color: #1a1818 ;
+            text-decoration: black;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-arrow:hover {
+            color :#b67d1a;
+        }
+        .payment-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .summary {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .summary p {
+            margin: 0.5rem 0;
+        }
+        .total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        .pay-now-btn {
+            background-color: #f39c12;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .pay-now-btn:hover {
+            background-color: #e08e0b;
+        }
+    </style>
+</head>
+<body>
+     <!-- Back Arrow -->
+     <a class="back-arrow" onclick="history.back()">
+        &#8592; 
+    </a>
+    <div class="payment-container">
+        <h1>Payment Details</h1>
+        <div class="summary">
+            <p><strong>Product:</strong> <span id="product-name"></span></p>
+            <p><strong>Size:</strong> <span id="product-size"></span></p>
+            <p><strong>Quantity:</strong> <span id="product-quantity"></span></p>
+            <p><strong>Price (per item):</strong> ₹<span id="product-price"></span></p>
+        </div>
+        <div class="total">
+            Total Amount: ₹<span id="total-amount"></span>
+        </div>
+        <button type="button" class="pay-now-btn" onclick="redirectToQRCode()">Pay with QRcode</button>
+        <a href="pay with card.html" class="pay-now-btn" ><button type="button" class="pay-now-btn" onclick="redirectToQRCode()">Pay with Debit/Credit card</button>
+        </a>
+
+
+
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const productName = urlParams.get('product');
+        const productSize = urlParams.get('size');
+        const productQuantity = urlParams.get('quantity');
+        const productPrice = urlParams.get('price');
+
+        // Calculate total amount
+        const totalAmount = productPrice * productQuantity;
+
+        // Display values on the payment page
+        document.getElementById('product-name').textContent = productName;
+        document.getElementById('product-size').textContent = productSize;
+        document.getElementById('product-quantity').textContent = productQuantity;
+        document.getElementById('product-price').textContent = productPrice;
+        document.getElementById('total-amount').textContent = totalAmount;
+   
+        function redirectToQRCode() {
+            // Get the total amount
+            const amount = document.getElementById('total-amount').textContent;
+    
+            // Redirect to the QR Code page with the amount as a query parameter
+            window.location.href = `qrcode.html?amount=${amount}`;
+        }
+    </script>
+    
+</body>
+</html>
